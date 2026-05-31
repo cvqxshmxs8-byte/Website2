@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sinjalistika Rrugore — Jeta Fillon me Respektin</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #E63946;
+    --yellow: #FFD60A;
+    --blue: #023E8A;
+    --light-blue: #0096C7;
+    --white: #F8F9FA;
+    --dark: #0D1117;
+    --gray: #1E2A3A;
+    --green: #2DC653;
+    --orange: #FF6B35;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Nunito', sans-serif; background: var(--dark); color: var(--white); overflow-x: hidden; }
+
+  .road-bg {
+    background:
+      repeating-linear-gradient(90deg, transparent, transparent 48%, rgba(255,214,10,0.08) 48%, rgba(255,214,10,0.08) 52%),
+      linear-gradient(180deg, #0D1117 0%, #111827 100%);
+  }
+
+  #hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; position: relative; overflow: hidden; padding: 2rem; }
+
+  .hero-road { position: absolute; bottom: 0; left: 0; right: 0; height: 120px; background: #1a1a1a; }
+  .hero-road::before {
+    content: ''; position: absolute; top: 50%; left: -100%; width: 300%; height: 6px;
+    background: repeating-linear-gradient(90deg, var(--yellow) 0px, var(--yellow) 60px, transparent 60px, transparent 100px);
+    animation: roadMove 2s linear infinite;
+  }
+  @keyframes roadMove { from { transform: translateX(0); } to { transform: translateX(100px); } }
+
+  .hero-badge { display: inline-block; background: var(--red); color: white; font-family: 'Space Mono', monospace; font-size: 0.75rem; letter-spacing: 3px; padding: 0.4rem 1.2rem; border-radius: 2px; margin-bottom: 1.5rem; animation: fadeDown 0.8s ease both; }
+
+  h1.hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3.5rem, 10vw, 8rem); line-height: 0.9; letter-spacing: 2px; animation: fadeDown 0.8s 0.2s ease both; }
+  h1.hero-title span.accent { color: var(--yellow); }
+  h1.hero-title span.red-line { display: block; color: var(--red); -webkit-text-stroke: 2px var(--red); }
+
+  .hero-sub { font-size: 1.1rem; max-width: 600px; margin: 1.5rem auto; opacity: 0.8; line-height: 1.7; animation: fadeDown 0.8s 0.4s ease both; }
+
+  .hero-stat-row { display: flex; gap: 2rem; flex-wrap: wrap; justify-content: center; margin-top: 2.5rem; animation: fadeDown 0.8s 0.6s ease both; }
+  .hero-stat { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 1rem 1.8rem; text-align: center; backdrop-filter: blur(10px); }
+  .hero-stat .num { font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; color: var(--yellow); display: block; }
+  .hero-stat .lbl { font-size: 0.8rem; opacity: 0.7; }
+
+  .scroll-cta { margin-top: 3rem; opacity: 0.7; font-size: 2rem; animation: fadeDown 0.8s 0.8s ease both, bounce 2s 1.6s infinite; }
+  @keyframes bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
+  @keyframes fadeDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(13,17,23,0.92); backdrop-filter: blur(16px); border-bottom: 2px solid var(--yellow); display: flex; align-items: center; justify-content: space-between; padding: 0.8rem 2rem; }
+  .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; color: var(--yellow); letter-spacing: 2px; }
+  .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+  .nav-links a { color: var(--white); text-decoration: none; font-size: 0.85rem; font-weight: 700; letter-spacing: 1px; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--yellow); }
+
+  section { padding: 5rem 1.5rem; }
+  .section-label { font-family: 'Space Mono', monospace; font-size: 0.7rem; letter-spacing: 4px; color: var(--yellow); text-transform: uppercase; margin-bottom: 0.5rem; }
+  .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1; margin-bottom: 1rem; }
+  .container { max-width: 1200px; margin: 0 auto; }
+
+  #rëndësia { background: var(--gray); }
+  .importance-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+  .imp-card { background: var(--dark); border-radius: 16px; padding: 2rem; border-left: 4px solid var(--yellow); transition: transform 0.3s, box-shadow 0.3s; position: relative; overflow: hidden; }
+  .imp-card::after { content: ''; position: absolute; top: -40px; right: -40px; width: 120px; height: 120px; background: rgba(255,214,10,0.04); border-radius: 50%; }
+  .imp-card:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+  .imp-card:nth-child(2) { border-left-color: var(--red); }
+  .imp-card:nth-child(3) { border-left-color: var(--light-blue); }
+  .imp-card:nth-child(4) { border-left-color: var(--green); }
+  .imp-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+  .imp-card h3 { font-size: 1.2rem; font-weight: 900; margin-bottom: 0.8rem; }
+  .imp-card p { font-size: 0.9rem; opacity: 0.8; line-height: 1.7; }
+
+  #sinjalet { background: var(--dark); }
+  .signs-intro { max-width: 700px; opacity: 0.8; line-height: 1.8; margin-bottom: 3rem; }
+  .sign-category { margin-bottom: 4rem; }
+  .cat-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
+  .cat-badge { padding: 0.3rem 1rem; border-radius: 4px; font-family: 'Space Mono', monospace; font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; }
+  .cat-badge.danger { background: var(--red); }
+  .cat-badge.info { background: var(--blue); }
+  .cat-badge.order { background: var(--orange); }
+  .cat-badge.guide { background: var(--green); color: #000; }
+  .cat-badge.priority { background: var(--yellow); color: #000; }
+  .signs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1.5rem; }
+  .sign-card { background: var(--gray); border-radius: 16px; padding: 1.5rem; text-align: center; transition: transform 0.3s, box-shadow 0.3s; cursor: default; border: 1px solid rgba(255,255,255,0.05); }
+  .sign-card:hover { transform: translateY(-4px) scale(1.02); box-shadow: 0 16px 40px rgba(0,0,0,0.5); border-color: rgba(255,214,10,0.3); }
+  .sign-svg { width: 90px; height: 90px; margin: 0 auto 1rem; display: block; }
+  .sign-name { font-weight: 900; font-size: 0.9rem; margin-bottom: 0.5rem; }
+  .sign-desc { font-size: 0.78rem; opacity: 0.7; line-height: 1.5; }
+
+  #rregullat { background: var(--gray); }
+  .rules-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-top: 3rem; }
+  @media (max-width: 768px) {
+    .rules-layout { grid-template-columns: 1fr; }
+    nav { padding: 0.8rem 1rem; }
+    .nav-links { gap: 0.8rem; }
+    .nav-links a { font-size: 0.7rem; }
+  }
+  .rule-item { display: flex; gap: 1.2rem; align-items: flex-start; padding: 1.5rem; background: var(--dark); border-radius: 12px; margin-bottom: 1rem; border: 1px solid rgba(255,255,255,0.05); transition: border-color 0.2s; }
+  .rule-item:hover { border-color: rgba(255,214,10,0.3); }
+  .rule-num { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--yellow); min-width: 45px; line-height: 1; }
+  .rule-item h4 { font-weight: 900; margin-bottom: 0.4rem; }
+  .rule-item p { font-size: 0.85rem; opacity: 0.75; line-height: 1.6; }
+  .speed-table-wrap { background: var(--dark); border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); }
+  .speed-table-wrap h3 { padding: 1.2rem 1.5rem; font-weight: 900; background: rgba(255,214,10,0.1); border-bottom: 1px solid rgba(255,214,10,0.2); color: var(--yellow); }
+  table { width: 100%; border-collapse: collapse; }
+  th { background: rgba(255,255,255,0.05); padding: 0.8rem 1rem; text-align: left; font-size: 0.8rem; letter-spacing: 1px; color: var(--yellow); }
+  td { padding: 0.9rem 1rem; font-size: 0.85rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(255,255,255,0.03); }
+
+  #urgjenca { background: linear-gradient(135deg, #1a0005 0%, #0d1117 50%, #001a0a 100%); position: relative; overflow: hidden; }
+  #urgjenca::before { content: '⚠'; position: absolute; font-size: 20rem; opacity: 0.03; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+  .emergency-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+  .emerg-card { border-radius: 16px; padding: 2rem; position: relative; overflow: hidden; }
+  .emerg-card.accident { background: linear-gradient(135deg, rgba(230,57,70,0.15), rgba(230,57,70,0.05)); border: 1px solid rgba(230,57,70,0.3); }
+  .emerg-card.breakdown { background: linear-gradient(135deg, rgba(255,107,53,0.15), rgba(255,107,53,0.05)); border: 1px solid rgba(255,107,53,0.3); }
+  .emerg-card.fog { background: linear-gradient(135deg, rgba(0,150,199,0.15), rgba(0,150,199,0.05)); border: 1px solid rgba(0,150,199,0.3); }
+  .emerg-icon { font-size: 3rem; margin-bottom: 1rem; }
+  .emerg-card h3 { font-size: 1.3rem; font-weight: 900; margin-bottom: 1.2rem; }
+  .emerg-steps { list-style: none; }
+  .emerg-steps li { display: flex; align-items: flex-start; gap: 0.8rem; margin-bottom: 0.8rem; font-size: 0.88rem; line-height: 1.5; }
+  .step-dot { min-width: 22px; height: 22px; border-radius: 50%; background: var(--yellow); color: #000; font-size: 0.7rem; font-weight: 900; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+  .emerg-card.accident .step-dot { background: var(--red); color: #fff; }
+  .emerg-card.breakdown .step-dot { background: var(--orange); color: #fff; }
+  .emerg-card.fog .step-dot { background: var(--light-blue); }
+  .emergency-numbers { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 3rem; justify-content: center; }
+  .emnum { background: var(--gray); border-radius: 12px; padding: 1.2rem 2rem; text-align: center; border: 1px solid rgba(255,255,255,0.1); min-width: 160px; }
+  .emnum .number { font-family: 'Bebas Neue', sans-serif; font-size: 2.8rem; color: var(--yellow); display: block; }
+  .emnum .label { font-size: 0.8rem; opacity: 0.7; }
+
+  #këmbësorët { background: var(--dark); }
+  .ped-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+  .ped-card { background: var(--gray); border-radius: 16px; padding: 1.8rem; border-top: 3px solid var(--green); transition: transform 0.3s; }
+  .ped-card:hover { transform: translateY(-5px); }
+  .ped-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+  .ped-card h3 { font-weight: 900; margin-bottom: 0.8rem; }
+  .ped-card p { font-size: 0.87rem; opacity: 0.78; line-height: 1.7; }
+
+  #kuizi { background: var(--gray); }
+  .quiz-box { max-width: 700px; margin: 3rem auto 0; background: var(--dark); border-radius: 20px; padding: 2.5rem; border: 1px solid rgba(255,255,255,0.1); }
+  .quiz-q { font-size: 1.1rem; font-weight: 700; margin-bottom: 1.5rem; line-height: 1.5; }
+  .quiz-num { font-family: 'Space Mono', monospace; color: var(--yellow); font-size: 0.8rem; margin-bottom: 0.5rem; }
+  .quiz-options { display: flex; flex-direction: column; gap: 0.8rem; }
+  .quiz-opt { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 0.9rem 1.2rem; cursor: pointer; font-size: 0.9rem; font-weight: 600; transition: all 0.2s; text-align: left; color: var(--white); font-family: 'Nunito', sans-serif; }
+  .quiz-opt:hover:not(:disabled) { background: rgba(255,214,10,0.1); border-color: var(--yellow); transform: translateX(4px); }
+  .quiz-opt.correct { background: rgba(45,198,83,0.2); border-color: var(--green); }
+  .quiz-opt.wrong { background: rgba(230,57,70,0.2); border-color: var(--red); }
+  .quiz-opt:disabled { cursor: default; }
+  .quiz-feedback { margin-top: 1rem; padding: 1rem; border-radius: 10px; font-size: 0.9rem; font-weight: 600; display: none; }
+  .quiz-feedback.show { display: block; }
+  .quiz-feedback.ok { background: rgba(45,198,83,0.15); border: 1px solid rgba(45,198,83,0.3); color: var(--green); }
+  .quiz-feedback.err { background: rgba(230,57,70,0.15); border: 1px solid rgba(230,57,70,0.3); color: #ff8a94; }
+  .quiz-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 1.5rem; }
+  .btn { background: var(--yellow); color: #000; border: none; padding: 0.7rem 1.6rem; border-radius: 8px; font-weight: 900; font-size: 0.9rem; cursor: pointer; font-family: 'Nunito', sans-serif; transition: transform 0.2s, box-shadow 0.2s; }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255,214,10,0.3); }
+  .btn:disabled { opacity: 0.4; cursor: default; transform: none; box-shadow: none; }
+  .score-display { font-family: 'Space Mono', monospace; font-size: 0.85rem; color: var(--yellow); }
+  .quiz-result { text-align: center; padding: 2rem; display: none; }
+  .quiz-result.show { display: block; }
+  .result-score { font-family: 'Bebas Neue', sans-serif; font-size: 5rem; color: var(--yellow); }
+
+  #këshilla { background: var(--dark); }
+  .tips-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+  .tip-card { background: var(--gray); border-radius: 16px; padding: 1.8rem; position: relative; overflow: hidden; transition: transform 0.3s; }
+  .tip-card:hover { transform: translateY(-5px); }
+  .tip-card::before { content: attr(data-num); position: absolute; top: -10px; right: 10px; font-family: 'Bebas Neue', sans-serif; font-size: 6rem; color: rgba(255,255,255,0.04); line-height: 1; }
+  .tip-card h3 { font-weight: 900; margin-bottom: 0.8rem; font-size: 1.05rem; }
+  .tip-card p { font-size: 0.87rem; opacity: 0.78; line-height: 1.7; }
+
+  footer { background: #070b10; text-align: center; padding: 3rem 1.5rem; border-top: 2px solid var(--yellow); }
+  .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; color: var(--yellow); letter-spacing: 3px; margin-bottom: 0.5rem; }
+  footer p { opacity: 0.5; font-size: 0.85rem; }
+  .footer-heart { color: var(--red); }
+
+  .progress-bar { position: fixed; top: 0; left: 0; height: 3px; background: var(--yellow); z-index: 9999; transition: width 0.1s; }
+
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<nav>
+  <div class="nav-logo">🚦 RugaeSigurt</div>
+  <ul class="nav-links">
+    <li><a href="#rëndësia">Rëndësia</a></li>
+    <li><a href="#sinjalet">Sinjalet</a></li>
+    <li><a href="#rregullat">Rregullat</a></li>
+    <li><a href="#urgjenca">Urgjenca</a></li>
+    <li><a href="#kuizi">Kuiz</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero" class="road-bg">
+  <div class="hero-badge">SIGURIA RRUGORE — SHQIPËRI</div>
+  <h1 class="hero-title">
+    JETA FILLON<br>
+    <span class="accent">ME</span>
+    <span class="red-line">RESPEKTIN</span>
+  </h1>
+  <p class="hero-sub">Çdo shenjë rrugore është një mesazh mbrojtjeje. Njohja dhe respektimi i sinjalistikës rrugore shpëton jetë — tuajat dhe të të tjerëve.</p>
+  <div class="hero-stat-row">
+    <div class="hero-stat"><span class="num">1.35M</span><span class="lbl">vdekje/vit nga aksidentet</span></div>
+    <div class="hero-stat"><span class="num">90%</span><span class="lbl">aksidente nga shkaqe njerëzore</span></div>
+    <div class="hero-stat"><span class="num">50%</span><span class="lbl">ulje me respektim të rregullave</span></div>
+  </div>
+  <div class="scroll-cta">↓</div>
+  <div class="hero-road"></div>
+</section>
+
+<!-- RËNDËSIA -->
+<section id="rëndësia">
+  <div class="container">
+    <p class="section-label reveal">PSE DUHET TË NA INTERESOJË</p>
+    <h2 class="section-title reveal">Rëndësia e Sinjalistikës</h2>
+    <div class="importance-grid">
+      <div class="imp-card reveal"><div class="imp-icon">🛡️</div><h3>Mbrojtje e Jetës</h3><p>Sinjalistika rrugore është sistemi kryesor i mbrojtjes së jetës njerëzore në rrugë. Çdo tabelë, vijë dhe semafor është projektuar posaçërisht për të parandaluar aksidentet.</p></div>
+      <div class="imp-card reveal"><div class="imp-icon">⚡</div><h3>Qarkullim i Rregullt</h3><p>Pa sinjalistikë të respektuar, qytetet do të paralizoheshin nga kaosi i trafikut. Respektimi i rregullave krijon fluks të qetë dhe kursen kohën e çdo qytetari.</p></div>
+      <div class="imp-card reveal"><div class="imp-icon">⚖️</div><h3>Detyrim Ligjor</h3><p>Shkelja e sinjalistikës rrugore sjell gjoba, heqje patente dhe madje dënime penale. Ligji shqiptar parashikojnë sanksione të rënda ndaj shkelësve.</p></div>
+      <div class="imp-card reveal"><div class="imp-icon">🌍</div><h3>Përgjegjësi Sociale</h3><p>Rruga është hapësirë e përbashkët. Çdo drejtues automjeti, çiklisti dhe këmbësor ka përgjegjësi ndaj të tjerëve. Respekti ndaj sinjalistikës është akt qytetarie.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SINJALET -->
+<section id="sinjalet">
+  <div class="container">
+    <p class="section-label reveal">GJUHA E RRUGËS</p>
+    <h2 class="section-title reveal">Tabelat Rrugore</h2>
+    <p class="signs-intro reveal">Tabelat rrugore ndahen në pesë kategori kryesore sipas formës, ngjyrës dhe qëllimit. Janë mbi <strong>20 tabela</strong> të detajuara më poshtë — çdo drejtues, çiklist dhe këmbësor duhet t'i njohë dhe respektojë ato.</p>
+
+    <!-- PARALAJMËRUESE -->
+    <div class="sign-category reveal">
+      <div class="cat-header">
+        <span class="cat-badge danger">⚠ PARALAJMËRUESE</span>
+        <span style="opacity:0.6; font-size:0.85rem;">Trekëndësh i bardhë me kufi të kuq — paralajmërojnë rrezik të ardhshëm</span>
+      </div>
+      <div class="signs-grid">
+        <div class="sign-card">
+          <svg class="sign-svg" viewBox="0 0 100 100">
+            <polygon points="50,6 94,88 6,88" fill="white" stroke="#E63946" stroke-width="5"/>
+            <text x="50" y="72" text-anchor="middle" font-size="38" font-weight="900" fill="#E63946">!</text>
+          </svg>
+          <div class="sign-name">Rrezik i Përgjithshëm</div>
+          <div class="sign-desc">Sinjal i rrezikut të paspecifikuar. Kujdes maksimal — zakonisht shoqërohet me tabelë shpjeguese poshtë.</div>
+        </div>
+        <div class="sign-card">
+          <svg class="sign-svg" viewBox="0 0 100 100">
+            <polygon points="50,6 94,88 6,88" fill="white" stroke="#E63946" stroke-width="5"/>
+            <path d="M 42 75 Q 42 50 55 40 Q 65 30 58 20" stroke="#333" stroke-width="6" fill="none" stroke-linecap="round"/>
+          </svg>
+          <div class="sign-name">Kthesë Djathtas</div>
+          <div class="sign-desc">Kthesë e mprehtë djathtas. Ul shpejtësinë para kthesës, jo gjatë saj — frenimet në kthesë janë shumë të rrezikshme.</div>
+        </div>
+        <div class="sign-card">
+          <svg class="sign-svg" viewBox="0 0 100 100">
+            <polygon points="50,6 94,88 6,88" fill="white" stroke="#E63946" stroke-width="5"/>
+            <path d="M 55 72 Q 65 58 50 50 Q 35 42 45 28" stroke="#333" stroke-width="6" fill="none" stroke-linecap="round"/>
+          </svg>
+          <div class="sign-name">Kthesa S (Zigzag)</div>
+          <div class="sign-desc">Seri kthesash të njëpasnjëshme. Tregon kujdes të lartë dhe shpejtësi shumë të reduktuar. Mos tejkalo kurrë.</div>
+        </div>
+        <div class="sign-card">
+          <svg class="sign-svg" viewBox="0 0 100 100">
+            <polygon points="50,6 94,88 6,88" fill="white" stroke="#E63946" stroke-width="5"/>
+            <text x="50" y="68" text-anchor="middle" font-size="30">🚸</text>
+          </svg>
+          <div class="sign-name">Kalim Këmbësorësh</div>
+          <div class="sign-desc">Zona me kalim fëmijësh ose këmbësorësh të shpeshtë. Ul shpejtësinë dhe jep përparësi absolute.</div>
+        </div>
+        <div class="sign-card">
+          <svg class="sign-svg" viewBox="0 0 100 100">
+            <polygon points="50,6 94,88 6,88" fill="white" stroke="#E63946" stroke-width="5"/>
+            <rect x="36" y="30" width="28" height="36" rx="4" fill="#333"/>
+            <rect x="40" y="34" width="8" height="8" rx="1" fill="white"/>
+            <rect x="52" y="34" width="8" height="8" rx="1" fill="white"/>
+            <circle cx="42" cy="62" r="4" fill="#555"/>
+            <circle cx="58" cy="62" r="4" fill="#555"/>
+          </svg>
+          <div class="sign-name">Kryqëzim me Hekurudhë</div>
+          <div class="sign-desc">Kryqëzim me linjë treni pa barrierë. Ndalo, dëgjo dhe shiko nga të dyja anët. Treni ka gjithmonë përparësi.</div>
+        </div>
+        <div class="sign-card">
+          <svg class="sign-svg" viewBox="0 0 100 100">
+            <polygon points="50,6 94,88 6,88" fill="white" stroke="#E63946" stroke-width="5"/>
+            <path d="M 38 72 L 42 45 L 48 50 L 52 35" stroke="#333" stroke-width="5" fill="none" stroke-linecap="round"/>
+            <path d="M 58 72 L 58 48 L 66 42 L 62 28" stroke="#333" stroke-width="5" fill="none" stroke-linecap="round"/>
+          </svg>
+          <div class="sign-name">Rrugë e Rrëshqitshme</div>
+          <div class="sign-desc">Sipërfaqe e lagët, akull ose baltë. Zvogëlo shpejtësinë, shto distancën dhe shmang frenimet e forta.</div>
+        </div>
+        <div class="sign-card">
+          <svg class="sign-svg" viewBox="0 0 100 100">
+            <polygon points="50,6 94,88 6,88" fill="white" stroke="#E63946" stroke-width="5"/>
+            <text x="50" y="70" text-anchor="middle" font-size="32">🦌</text>
+          </svg>
+          <div class="sign-name">Kafshë të Egra në Rrugë</div>
+          <div class="sign-desc">Zona me kalim të shpeshtë kafshësh. Kujdes veçanërisht gjatë natës dhe agimit kur kafshët janë aktive.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NDALUESE -->
+    <div class="sign-category reveal">
+      <div class="cat-header">
+        <span class="cat-badge order">⊘ NDALUESE</span>
+        <span style="opacity:0.6; font-size:0.85rem;">Rreth i bardhë me kufi të kuq — ndalojnë veprime specifike</span>
+      </div>
+      <div class="signs-grid">
+        <div class="sign-card">
+          <svg class="sign-svg" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="44" fill="white" stroke="#E63946" stroke-width="7"/>
+            <text x="50" y="61" text-anchor="middle" font-size="30" font-weight="900" fill="#222">50</text>
+          </svg>
+          <div class="sign-name">Kufi Shpejtësie 50 km/h</div>
+          <div class="sign-desc">Shpejtësia maksimale e lejuar është 50 km/h. Tejkalimi sjell gjobë dhe pikë negative në patentë.</div>
+        </div>
+        <div class="sign-card">
+          <svg class="sign-svg" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="44" fill="white" stroke="#E63946" stroke-width="7"/>
+            <line x1="20" y1="50" x2="80" y2="50" stroke="#E63946" stroke-width="12" stroke-linecap="round"/>
+          </svg>
+          <div class="sign-name">Ndalohet Hyrja</div>
+          <div class="sign-desc">Rrugë me sens të vetëm — ndalohet hyrja nga kjo anë. Shpesh vendoset në dalje të rrugëve me sens.</div>
+        </div>
+        <div class="sign-card">
+          <svg class="sign-svg" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="44" fill="white" stroke="#E63946" stroke-width="7"/>
+            <rect x="22" y="40" width="56" height="24" rx="6" fill="#aaa"/>
+            <rect x="28" y="32" width="42" height="18" rx="5" fill="#aaa"/>
+            <circle cx="34" cy="66" r="7" fill="#444"/>
+            <circle cx="66" cy="66" r="7" fill="#444"/>
+            <line x1="15" y1="85" x2="85" y2="15" stroke="#E63946" stroke-width="8"/>
+          </svg>
+          <div class="sign-name">Ndalohet Kalimi Automjeteve</div>
+          <div class="sign-desc">Ndalohet plotësisht kalimi i automjeteve motorike. Mund të lejohen biçikletat dhe këmbësorët.</div>
+        </div>
+        <div class="sign-card">
+          <svg class="sign-svg" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="44" fill="white" stroke="#E63946" stroke-width="7"/>
+            <rect x="18" y="38" width="40" height="26" rx="4" fill="#888"/>
+            <rect x="58" y="44" width="22" height="20" rx="3" fill="#666"/>
+            <circle cx="30" cy="66" r="7" fill="#333"/>
+            <circle cx="55" cy="66" r="7" fill="#333"/>
+            <line x1="15" y1="85" x2="85" y2="15" stroke="#E63946" stroke-width="8"/>
+          </svg>
+          <div class="sign-name">Ndalohet Kamionët</div>
+          <div class="sign-desc">Ndalohet qarkullimi i kamionëve mbi peshën e caktuar. Zakonisht mbi ura ose rrugë të ngushta.</div>
+        </div>
+        <div class="sign-card">
+          <svg class="sign-svg" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="44" fill="white" stroke="#E63946" stroke-width="7"/>
+            <text x="50" y="62" text-anchor="middle" font-size="38" font-weight="900" fill="#333">P</text>
+            <line x1="15" y1="85" x2="85" y2="15" stroke="#E63946" stroke-width="8"/>
+          </svg>
+          <div class="sign-name">Ndalohet Parkimi</div>
+          <div class="sign-desc">Parkimi i mjeteve është absolutisht i ndaluar. Mjeti mund të tërhiqet me rimorkio me shpenzime të drejtuesit.</div>
+        </div>
+        <div class="sign-card">
+          <svg class="sign-svg" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="44" fill="white" stroke="#E63946" stroke-width="7"/>
+            <path d="M 30 65 L 30 38 L 38 46 M 30 38 L 22 46" stroke="#555" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M 50 62 L 50 35 L 58 43 M 50 35 L 42 43" stroke="#555" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            <line x1="15" y1="85" x2="85" y2="15" stroke="#E63946" stroke-width="8"/>
+          </svg>
+          <div class="sign-name">Ndalohet Tejkalimi</div>
+          <div class="sign-desc">Ndalohet kapërcimi i çdo mjeti. Zakonisht në kthesa, kreshta ose zona me dukshmëri të ulët.</div>
+        </div>
+        <div class="sign-card">
+          <svg class="sign-svg" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="44" fill="white" stroke="#E63946" stroke-width="7"/>
+            <text x="44" y="60" text-anchor="middle" font-size="28">📯</text>
+            <line x1="15" y1="85" x2="85" y2="15" stroke="#E63946" stroke-width="8"/>
+          </svg>
+          <div class="sign-name">Ndalohet Boria</div>
+          <div class="sign-desc">Ndalohet çdo sinjal akustik (boria). Gjendet zakonisht afër spitaleve, shkollave dhe zonave të banuara.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- URDHËRUESE -->
+    <div class="sign-category reveal">
+      <div class="cat-header">
+        <span class="cat-badge info">● URDHËRUESE</span>
+        <span style="opacity:0.6; font-size:0.85rem;">Rreth blu me simbol të bardhë — urdhërojnë sjellje të detyrueshme</span>
+      </div>
+      <div class="signs-grid">
+        <div class="sign-card">
+          <svg class="sign-svg" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="44" fill="#023E8A"/>
+            <path d="M 30 50 L 62 50 M 62 50 L 50 38 M 62 50 L 50 62" stroke="white" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <div class="sign-name">Drejtimi i Detyrueshëm Djathtas</div>
+          <div class="sign-desc">Duhet të ktheheni detyrimisht djathtas. Nuk lejohet asnjë drejtim tjetër. Shpesh te kryqëzimet.</div>
+        </div>
+        <div class="sign-card">
+          <svg class="sign-svg" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="44" fill="#023E8A"/>
+            <path d="M 50 68 L 50 36 M 50 36 L 38 48 M 50 36 L 62 48" stroke="white" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <div class="sign-name">Drejtimi i Detyrueshëm Drejt</div>
+          <div class="sign-desc">Mund të vazhdoni vetëm drejt. Kthimet janë të ndaluara. Zakonisht te kryqëzimet komplekse.</div>
+        </div>
+        <div class="sign-card">
+          <svg class="sign-svg" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="44" fill="#023E8A"/>
+            <circle cx="50" cy="50" r="18" fill="none" stroke="white" stroke-width="6"/>
+            <path d="M 68 44 L 62 50 L 68 56" stroke="white" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <div class="sign-name">Qarkullim Rrethor</div>
+          <div class="sign-desc">Tregon rrethrrotullimin. Mjetet brenda rrethit kanë përparësi. Futuni vetëm kur rruga është e lirë.</div>
+        </div>
+        <div class="sign-card">
+          <svg class="sign-svg" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="44" fill="#023E8A"/>
+            <circle cx="35" cy="60" r="10" fill="none" stroke="white" stroke-width="4"/>
+            <circle cx="65" cy="60" r="10" fill="none" stroke="white" stroke-width="4"/>
+            <path d="M 35 60 L 48 38 L 65 60" stroke="white" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="48" cy="36" r="4" fill="white"/>
+          </svg>
+          <div class="sign-name">Pistë e Detyrueshme për Çiklista</div>
+          <div class="sign-desc">Çiklistët duhet ta përdorin këtë shteg. Mjetet motorike ndalohen absolutisht të qarkullojnë këtu.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PËRPARËSIE -->
+    <div class="sign-category reveal">
+      <div class="cat-header">
+        <span class="cat-badge priority">◆ PËRPARËSIE</span>
+        <span style="opacity:0.6; font-size:0.85rem;">Forma dhe ngjyra të veçanta — tregojnë kush ka të drejtën e kalimit</span>
+      </div>
+      <div class="signs-grid">
+        <div class="sign-card">
+          <svg class="sign-svg" viewBox="0 0 100 100">
+            <polygon points="50,5 95,50 50,95 5,50" fill="#FFD60A" stroke="white" stroke-width="4"/>
+          </svg>
+          <div class="sign-name">Rruga Kryesore (Rombo i Verdhë)</div>
+          <div class="sign-desc">Jeni në rrugën prioritare. Të gjitha mjetet nga rrugët dytësore duhet t'ju japin të drejtën e kalimit.</div>
+        </div>
+        <div class="sign-card">
+          <svg class="sign-svg" viewBox="0 0 100 100">
+            <polygon points="50,90 95,12 5,12" fill="white" stroke="#E63946" stroke-width="6"/>
+            <polygon points="50,78 83,18 17,18" fill="#E63946"/>
+          </svg>
+          <div class="sign-name">Jep Përparësi (Yield)</div>
+          <div class="sign-desc">Trekëndëshi i përmbysur. Duhet të ndaloni ose ngadalësohi dhe t'u jepni të drejtën mjeteve në rrugën kryesore.</div>
+        </div>
+        <div class="sign-card">
+          <svg class="sign-svg" viewBox="0 0 100 100">
+            <rect x="8" y="8" width="84" height="84" rx="8" fill="#E63946"/>
+            <text x="50" y="58" text-anchor="middle" font-family="Arial Black" font-size="26" font-weight="900" fill="white">STOP</text>
+          </svg>
+          <div class="sign-name">NDALO — STOP Absolut</div>
+          <div class="sign-desc">Ndalo plotësisht — makina duhet të jetë krejtësisht e ndalur. Jep përparësi absolutisht të gjithëve. Pa përjashtim.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- INFORMUESE -->
+    <div class="sign-category reveal">
+      <div class="cat-header">
+        <span class="cat-badge guide">▣ INFORMUESE</span>
+        <span style="opacity:0.6; font-size:0.85rem;">Drejtkëndësh blu ose jeshil — ofrojnë informacion të dobishëm</span>
+      </div>
+      <div class="signs-grid">
+        <div class="sign-card">
+          <svg class="sign-svg" viewBox="0 0 100 100">
+            <rect x="5" y="15" width="90" height="70" rx="8" fill="#0096C7"/>
+            <text x="50" y="62" text-anchor="middle" font-size="38" font-weight="900" fill="white">H</text>
+          </svg>
+          <div class="sign-name">Spital — Urgjencë Mjekësore</div>
+          <div class="sign-desc">Tregon drejtimin drejt spitalit ose ambulancës. Mjetet e urgjencës kanë prioritet absolut në afërsi.</div>
+        </div>
+        <div class="sign-card">
+          <svg class="sign-svg" viewBox="0 0 100 100">
+            <rect x="5" y="15" width="90" height="70" rx="8" fill="#2DC653"/>
+            <text x="50" y="58" text-anchor="middle" font-size="22" font-weight="900" fill="white">EXIT</text>
+            <path d="M 30 68 L 70 68 M 70 68 L 60 60 M 70 68 L 60 76" stroke="white" stroke-width="4" fill="none" stroke-linecap="round"/>
+          </svg>
+          <div class="sign-name">Dalje Autostrade</div>
+          <div class="sign-desc">Paralajmëron daljen e radhës. Filloni kalimin në shiritin e djathtë herët — 1-2 km para daljes.</div>
+        </div>
+        <div class="sign-card">
+          <svg class="sign-svg" viewBox="0 0 100 100">
+            <rect x="5" y="15" width="90" height="70" rx="8" fill="#023E8A"/>
+            <text x="50" y="60" text-anchor="middle" font-size="32">⛽</text>
+          </svg>
+          <div class="sign-name">Stacion Karburanti</div>
+          <div class="sign-desc">Stacion benzine ose diesel i afërt. I rëndësishëm gjatë udhëtimeve në rrugë ndërmjet qyteteve.</div>
+        </div>
+        <div class="sign-card">
+          <svg class="sign-svg" viewBox="0 0 100 100">
+            <rect x="5" y="15" width="90" height="70" rx="8" fill="#023E8A"/>
+            <text x="50" y="60" text-anchor="middle" font-size="32">🅿</text>
+          </svg>
+          <div class="sign-name">Parkim i Lejuar</div>
+          <div class="sign-desc">Zona ku parkimi lejohet. Shpesh shoqërohet me panel që tregon orët e lejuara ose pagesën.</div>
+        </div>
+        <div class="sign-card">
+          <svg class="sign-svg" viewBox="0 0 100 100">
+            <rect x="5" y="15" width="90" height="70" rx="8" fill="#023E8A"/>
+            <text x="50" y="56" text-anchor="middle" font-size="28">🦓</text>
+            <text x="50" y="76" text-anchor="middle" font-size="13" fill="white" font-weight="700">ZEBRA</text>
+          </svg>
+          <div class="sign-name">Kalim Zebra — Informues</div>
+          <div class="sign-desc">Tregon vendndodhjen e kalimit të ligjshëm të këmbësorëve. Drejtuesit duhet të jenë vigjilentë.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SINJALISTIKA HORIZONTALE -->
+    <div class="sign-category reveal">
+      <div class="cat-header">
+        <span class="cat-badge" style="background:#6c3fc5;">≡ SINJALISTIKA HORIZONTALE</span>
+        <span style="opacity:0.6; font-size:0.85rem;">Vija dhe shenja mbi sipërfaqen e rrugës</span>
+      </div>
+      <div class="signs-grid">
+        <div class="sign-card">
+          <svg class="sign-svg" viewBox="0 0 100 100">
+            <rect x="5" y="5" width="90" height="90" rx="10" fill="#2a2a2a"/>
+            <line x1="46" y1="10" x2="46" y2="90" stroke="#FFD60A" stroke-width="4"/>
+            <line x1="54" y1="10" x2="54" y2="90" stroke="#FFD60A" stroke-width="4"/>
+          </svg>
+          <div class="sign-name">Vija e Dyfishtë e Plotë</div>
+          <div class="sign-desc">Ndahet rruga me dy sens. Nuk lejohet tejkalimi nga asnjë drejtim. Shkelja është nga më të rrezikshmet.</div>
+        </div>
+        <div class="sign-card">
+          <svg class="sign-svg" viewBox="0 0 100 100">
+            <rect x="5" y="5" width="90" height="90" rx="10" fill="#2a2a2a"/>
+            <line x1="50" y1="10" x2="50" y2="30" stroke="white" stroke-width="4"/>
+            <line x1="50" y1="42" x2="50" y2="62" stroke="white" stroke-width="4"/>
+            <line x1="50" y1="74" x2="50" y2="90" stroke="white" stroke-width="4"/>
+          </svg>
+          <div class="sign-name">Vija e Ndërprerë (Korsi)</div>
+          <div class="sign-desc">Ndan korsinë. Lejohet tejkalimi me kujdes kur rruga është e lirë dhe dukshmëria e mjaftueshme.</div>
+        </div>
+        <div class="sign-card">
+          <svg class="sign-svg" viewBox="0 0 100 100">
+            <rect x="5" y="5" width="90" height="90" rx="10" fill="#2a2a2a"/>
+            <rect x="15" y="30" width="70" height="10" rx="2" fill="white"/>
+            <rect x="15" y="46" width="70" height="10" rx="2" fill="white"/>
+            <rect x="15" y="62" width="70" height="10" rx="2" fill="white"/>
+          </svg>
+          <div class="sign-name">Kalimi i Zebrakës</div>
+          <div class="sign-desc">Zona e mbrojtur e këmbësorëve. Drejtuesit DUHET të ndalojnë kur ka këmbësorë që presin ose kalojnë.</div>
+        </div>
+        <div class="sign-card">
+          <svg class="sign-svg" viewBox="0 0 100 100">
+            <rect x="5" y="5" width="90" height="90" rx="10" fill="#2a2a2a"/>
+            <line x1="15" y1="65" x2="85" y2="65" stroke="white" stroke-width="8" stroke-linecap="round"/>
+            <line x1="50" y1="10" x2="50" y2="58" stroke="#888" stroke-width="16"/>
+          </svg>
+          <div class="sign-name">Vija e Ndalimit (Stop Line)</div>
+          <div class="sign-desc">Vija horizontale e bardhë para kryqëzimit. Mjeti duhet të ndalojë plotësisht prapa kësaj vije kur ka STOP ose semafor të kuq.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- RREGULLAT -->
+<section id="rregullat">
+  <div class="container">
+    <p class="section-label reveal">LIGJET E RRUGËS</p>
+    <h2 class="section-title reveal">Rregullat Kryesore</h2>
+    <div class="rules-layout">
+      <div>
+        <div class="rule-item reveal"><div class="rule-num">01</div><div><h4>Rripi i Sigurimit — Gjithmonë</h4><p>Rripi i sigurimit zvogëlon rrezikun e vdekjes me 45% dhe lëndimeve serioze me 50%. Është i detyrueshëm për të gjithë pasagjerët, jo vetëm drejtuesin.</p></div></div>
+        <div class="rule-item reveal"><div class="rule-num">02</div><div><h4>Ndalohet Telefoni Gjatë Drejtimit</h4><p>Shikimi i telefonit edhe 2 sekonda trefishon rrezikun e aksidentit. Gjoba shkon deri në 25,000 lekë dhe heqje patente.</p></div></div>
+        <div class="rule-item reveal"><div class="rule-num">03</div><div><h4>Distanca e Sigurimit</h4><p>Mbaj distancë minimale 2 sekonda nga mjeti para. Në shi ose akull, shto 4-6 sekonda. Kjo të jep kohë reagimi.</p></div></div>
+        <div class="rule-item reveal"><div class="rule-num">04</div><div><h4>Ndalohet Alkooli</h4><p>Kufiri ligjor është 0.1 g/l gjak. Alkooli dëmton reflekset, gjykimin dhe shikimin. Asnjë got nuk ia vlen jetën.</p></div></div>
+        <div class="rule-item reveal"><div class="rule-num">05</div><div><h4>Ndriçimi Gjatë Ditës</h4><p>Drita e ulët rrit dukshmërinë e mjetit tuaj 40%. Është e detyrueshme jashtë qytetit edhe gjatë ditës.</p></div></div>
+      </div>
+      <div>
+        <div class="speed-table-wrap reveal">
+          <h3>🚗 Limitet e Shpejtësisë në Shqipëri</h3>
+          <table>
+            <tr><th>LLOJI I RRUGËS</th><th>MAX km/h</th></tr>
+            <tr><td>Autostradë</td><td style="color:var(--yellow);font-weight:900">130 km/h</td></tr>
+            <tr><td>Rrugë interurbane</td><td style="color:var(--yellow);font-weight:900">90 km/h</td></tr>
+            <tr><td>Rrugë urbane kryesore</td><td style="color:var(--yellow);font-weight:900">70 km/h</td></tr>
+            <tr><td>Zona urbane</td><td style="color:var(--yellow);font-weight:900">50 km/h</td></tr>
+            <tr><td>Zona të banuara (rrugica)</td><td style="color:var(--yellow);font-weight:900">30 km/h</td></tr>
+            <tr><td>Afër shkollave / spitaleve</td><td style="color:var(--red);font-weight:900">20 km/h</td></tr>
+          </table>
+        </div>
+        <div class="speed-table-wrap reveal" style="margin-top:1.5rem">
+          <h3>💰 Gjobat Kryesore</h3>
+          <table>
+            <tr><th>SHKELJA</th><th>GJOBA</th></tr>
+            <tr><td>Tejkalim shpejtësie 10-30 km/h</td><td style="color:var(--orange)">5,000–10,000 L</td></tr>
+            <tr><td>Tejkalim shpejtësie 30+ km/h</td><td style="color:var(--red)">15,000–25,000 L</td></tr>
+            <tr><td>Alkool (0.1-0.5 g/l)</td><td style="color:var(--orange)">10,000–20,000 L</td></tr>
+            <tr><td>Telefon gjatë drejtimit</td><td style="color:var(--orange)">10,000–25,000 L</td></tr>
+            <tr><td>Pa rripin e sigurimit</td><td style="color:var(--orange)">3,000–8,000 L</td></tr>
+            <tr><td>Mosdhënia e përparësisë</td><td style="color:var(--orange)">5,000–10,000 L</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- URGJENCA -->
+<section id="urgjenca">
+  <div class="container">
+    <p class="section-label reveal">ÇFARË TË BËJ KUR...</p>
+    <h2 class="section-title reveal">Momentet e Vështirë</h2>
+    <div class="emergency-grid">
+      <div class="emerg-card accident reveal">
+        <div class="emerg-icon">🚨</div>
+        <h3>Ndodh një Aksident</h3>
+        <ul class="emerg-steps">
+          <li><span class="step-dot">1</span><span>Qetësohu — nxitimi krijon gabime. Merr frymë thellë para veprimit.</span></li>
+          <li><span class="step-dot">2</span><span>Ndalo mjetin në vend të sigurt, aktivizo dritat e rrezikut (hazardat).</span></li>
+          <li><span class="step-dot">3</span><span>Kontrollo shëndetin e të gjithëve. Mos lëviz të lënduarit nëse nuk ka rrezik zjarri.</span></li>
+          <li><span class="step-dot">4</span><span>Thirr menjëherë: Ambulancë 127 / Policia 129 / Zjarr 128</span></li>
+          <li><span class="step-dot">5</span><span>Vendos trekëndëshin paralajmërues 50m prapa mjetit tuaj.</span></li>
+          <li><span class="step-dot">6</span><span>Ruaj skenën e aksidentit. Mos lëviz mjetet para ardhjes së policisë.</span></li>
+          <li><span class="step-dot">7</span><span>Shkëmbe të dhënat me palën tjetër: emri, patentë, sigurim, mjet.</span></li>
+        </ul>
+      </div>
+      <div class="emerg-card breakdown reveal">
+        <div class="emerg-icon">🔧</div>
+        <h3>Mjeti ndalet në Rrugë</h3>
+        <ul class="emerg-steps">
+          <li><span class="step-dot">1</span><span>Tërhiqe mjetin sa më djathtas ose në shirit emergjence nëse je në autostradë.</span></li>
+          <li><span class="step-dot">2</span><span>Aktivizo dritat e rrezikut (hazardat) menjëherë.</span></li>
+          <li><span class="step-dot">3</span><span>Vendos trekëndëshin paralajmërues 50m pas mjetit në rrugë normale, 100m në autostradë.</span></li>
+          <li><span class="step-dot">4</span><span>Dil nga ana e kundërt me trafikun. Vish jelek reflektues.</span></li>
+          <li><span class="step-dot">5</span><span>Mos rri brenda mjetit nëse je i ekspozuar ndaj trafikut.</span></li>
+          <li><span class="step-dot">6</span><span>Thirr shërbimin e rimorkimit ose asistencën rrugore.</span></li>
+        </ul>
+      </div>
+      <div class="emerg-card fog reveal">
+        <div class="emerg-icon">🌫️</div>
+        <h3>Kushte të Vështira Meteo</h3>
+        <ul class="emerg-steps">
+          <li><span class="step-dot">1</span><span><strong>Mjegull:</strong> Aktivizo dritat anti-mjegull. Ul shpejtësinë drastikisht. Respekto distancën 4x.</span></li>
+          <li><span class="step-dot">2</span><span><strong>Shi i rëndë:</strong> Ul shpejtësinë me 30%. Kujdes ndaj akuaplaning — mos freno menjëherë.</span></li>
+          <li><span class="step-dot">3</span><span><strong>Dëborë/Akull:</strong> Përdor gomë dimërore. Ul shpejtësinë 50%. Frenon butë dhe gradual.</span></li>
+          <li><span class="step-dot">4</span><span><strong>Erë e fortë:</strong> Mbaj fort timonin. Kujdes ndaj kamionëve e autobusëve.</span></li>
+          <li><span class="step-dot">5</span><span>Nëse kushtet janë ekstreme, ndalo në vend të sigurt dhe prit.</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="emergency-numbers reveal">
+      <div class="emnum"><span class="number">127</span><span class="label">Ambulancë</span></div>
+      <div class="emnum"><span class="number">128</span><span class="label">Zjarrfikës</span></div>
+      <div class="emnum"><span class="number">129</span><span class="label">Policia</span></div>
+      <div class="emnum"><span class="number">112</span><span class="label">Emergjencat (EU)</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- KËMBËSORËT -->
+<section id="këmbësorët">
+  <div class="container">
+    <p class="section-label reveal">JO VETËM DREJTUESIT</p>
+    <h2 class="section-title reveal">Këmbësorët & Çiklistët</h2>
+    <div class="ped-grid">
+      <div class="ped-card reveal"><div class="ped-icon">🚶</div><h3>Kaloni vetëm në Zebra</h3><p>Zebraja është hapësira juaj e mbrojtur. Kaloni gjithmonë atje ku sinjalistika e lejon. Edhe nëse jeni të nxituar, 30 sekonda shtesë mund t'ju shpëtojë jetën.</p></div>
+      <div class="ped-card reveal"><div class="ped-icon">👀</div><h3>Shikoni Majtas-Djathtas-Majtas</h3><p>Edhe kur semafori është jeshil, shikoni dy herë para se të kaloni. Drejtuesit mund të mos ju shohin ose mund të mos kenë ndërruar rrugën në kohë.</p></div>
+      <div class="ped-card reveal"><div class="ped-icon">📵</div><h3>Jo Telefon Gjatë Kalimit</h3><p>Distraktimi është vrasës edhe për këmbësorët. Vendoseni telefonin në xhep para se të kaloni rrugën. Çdo sekondë e pavëmendjes është e rrezikshme.</p></div>
+      <div class="ped-card reveal"><div class="ped-icon">🌙</div><h3>Dukshmëria Natën</h3><p>Vishni rroba me ngjyra të ndritshme ose reflektuese kur ecni natën. Drejtuesi mesatar sheh këmbësorin vetëm 25m larg natën.</p></div>
+      <div class="ped-card reveal"><div class="ped-icon">⛑️</div><h3>Casca — Gjithmonë për Çiklistët</h3><p>Casca zvogëlon rrezikun e lëndimeve të kokës me 85%. Është mbrojtja e parë e çiklistit në rast rënieje ose aksidenti.</p></div>
+      <div class="ped-card reveal"><div class="ped-icon">🔦</div><h3>Drita e Biçikletës</h3><p>Biçikleta duhet të ketë dritë të bardhë përpara dhe të kuqe prapa. Drita bën çiklistin të dukshëm nga 200 metra larg.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- KUIZI -->
+<section id="kuizi">
+  <div class="container">
+    <p class="section-label reveal">TESTO NJOHURITË TUAJA</p>
+    <h2 class="section-title reveal">Kuizi i Sinjalistikës</h2>
+    <div class="quiz-box reveal" id="quizBox">
+      <div id="quizInner">
+        <div class="quiz-num" id="quizNum">Pyetja 1 / 8</div>
+        <div class="quiz-q" id="quizQ"></div>
+        <div class="quiz-options" id="quizOpts"></div>
+        <div class="quiz-feedback" id="quizFb"></div>
+        <div class="quiz-nav">
+          <div class="score-display" id="scoreDsp">Pikë: 0</div>
+          <button class="btn" id="nextBtn" onclick="nextQ()" disabled>Tjetër →</button>
+        </div>
+      </div>
+      <div class="quiz-result" id="quizResult">
+        <div style="font-size:3rem;margin-bottom:1rem" id="resultEmoji">🏆</div>
+        <div class="result-score" id="resultScore"></div>
+        <div style="opacity:0.8;margin:1rem 0" id="resultMsg"></div>
+        <button class="btn" onclick="restartQuiz()">🔄 Provo Sërish</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KËSHILLA -->
+<section id="këshilla">
+  <div class="container">
+    <p class="section-label reveal">MENÇURI PËR RRUGËN</p>
+    <h2 class="section-title reveal">10 Këshilla të Arta</h2>
+    <div class="tips-grid">
+      <div class="tip-card reveal" data-num="01"><h3>Fli Mjaftueshëm</h3><p>Pas 18 orë pa gjumë, reflekset tuaja barazohen me ato të një personi me 0.5‰ alkool në gjak. Lodhja vret aq sa alkooli.</p></div>
+      <div class="tip-card reveal" data-num="02"><h3>Planifiko Udhëtimin</h3><p>Shiko hartat dhe kushtet para nisjes. Njohja e rrugës dhe vendeve të rrezikshme të bën drejtues më të sigurt.</p></div>
+      <div class="tip-card reveal" data-num="03"><h3>Kontrollo Mjetin Rregullisht</h3><p>Gomat, frenat, ndriçimi dhe vajguri — kontrollo çdo muaj. Mjet në gjendje të mirë = rrugë e sigurt.</p></div>
+      <div class="tip-card reveal" data-num="04"><h3>Mirësia është Siguri</h3><p>Sillet me respekt ndaj drejtuesve të tjerë. Agresiviteti dhe nxitimi janë faktorë kryesorë aksidentesh.</p></div>
+      <div class="tip-card reveal" data-num="05"><h3>Siguro Fëmijët Siç Duhet</h3><p>Çdo fëmijë nën 12 vjet ose nën 150 cm duhet në karrige të veçantë sipas peshës. Kurrë në ulëse të përparme.</p></div>
+      <div class="tip-card reveal" data-num="06"><h3>Mos Kapërc Vijat</h3><p>Vija e bardhë dhe e verdhë kanë kuptim jetik. Vijat e dyfishta ndalojnë kapërcimin absolutisht.</p></div>
+      <div class="tip-card reveal" data-num="07"><h3>Shoferë Fillestarë</h3><p>Shoferët me patentë deri 2 vjeç duhet të jenë veçanërisht të kujdesshëm. Mos transporto pasagjerë të shumtë ditët e para.</p></div>
+      <div class="tip-card reveal" data-num="08"><h3>Kujdes Ndaj Motociklistëve</h3><p>Lëvizin shpejt dhe mund të jenë në "zonën e verbër" tuaj. Kontrollo pasqyrën dy herë para ndërrimit të shiritit.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">🚦 RUGA E SIGURT</div>
+  <p>Çdo udhëtim fillon me një vendim. Zgjidh të jesh i sigurt.</p>
+  <p style="margin-top:0.5rem">Bërë me <span class="footer-heart">♥</span> për sigurinë rrugore në Shqipëri</p>
+</footer>
+
+<script>
+window.addEventListener('scroll', () => {
+  const h = document.documentElement.scrollHeight - window.innerHeight;
+  const p = (window.scrollY / h) * 100;
+  document.getElementById('progressBar').style.width = p + '%';
+});
+
+const revealEls = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); }});
+}, { threshold: 0.1 });
+revealEls.forEach(el => observer.observe(el));
+
+const questions = [
+  { q: "Çfarë tregon tabelë trekëndore me kufi të kuq?", opts: ["Urdhëron një veprim", "Paralajmëron një rrezik", "Ndalon kalimin", "Tregon drejtimin"], correct: 1, explain: "Tabelat trekëndore me kufi të kuq janë PARALAJMËRUESE — na njoftojnë për rrezik të ardhshëm në rrugë." },
+  { q: "Cili është kufiri i alkoolit në gjak i lejuar për drejtuesit e mjeteve në Shqipëri?", opts: ["0.5 g/l", "0.3 g/l", "0.1 g/l", "0.0 g/l (zero)"], correct: 2, explain: "Kufiri ligjor në Shqipëri është 0.1 g/l gjak. Tejkalimi sjell gjoba dhe heqje patente." },
+  { q: "Ku duhet të vendosësh trekëndëshin paralajmërues kur mjeti ndalet në autostradë?", opts: ["10 metra pas", "50 metra pas", "100 metra pas", "200 metra pas"], correct: 2, explain: "Në autostradë, trekëndëshi vendoset 100 metra pas mjetit. Në rrugë normale është 50 metra." },
+  { q: "Shenja STOP të detyron të ndalosh:", opts: ["Vetëm nëse ka mjete", "Vetëm gjatë natës", "Absolutisht gjithmonë, edhe nëse rruga është e lirë", "Vetëm nëse policia është pranë"], correct: 2, explain: "STOP është absolut. Duhet të ndalosh plotësisht pavarësisht situatës. Është rregull, jo rekomandim." },
+  { q: "Cila është shpejtësia maksimale e lejuar në zona urbane (brenda qytetit)?", opts: ["30 km/h", "50 km/h", "70 km/h", "90 km/h"], correct: 1, explain: "Në zonat urbane kufiri standard është 50 km/h. Afër shkollave dhe spitaleve mund të jetë edhe 20-30 km/h." },
+  { q: "Çfarë bën tabelë me rreth blu?", opts: ["Ndalon kalimin", "Jep informacion", "Urdhëron një sjellje të caktuar", "Paralajmëron rrezik"], correct: 2, explain: "Tabelat me rreth blu janë URDHËRUESE — urdhërojnë drejtuesin të ndjekë një sjellje të caktuar." },
+  { q: "Cila nga këto shenja tregon që jeni në rrugën me PËRPARËSI?", opts: ["Trekëndësh i kuq me pikëçuditëse", "Rombo i verdhë", "Rreth i kuq me 'P'", "Shenjë blu drejtkëndore"], correct: 1, explain: "Rombo (katrori rrotulluar 45°) i verdhë tregon rrugën kryesore. Mjetet nga rrugët dytësore ju japin prioritet." },
+  { q: "Rripi i sigurimit ul rrezikun e vdekjes me:", opts: ["Rreth 10%", "Rreth 20-25%", "Rreth 45-50%", "Rreth 80%"], correct: 2, explain: "Rripi i sigurimit zvogëlon rrezikun e vdekjes me 45% dhe lëndimeve serioze me 50%. Është mbrojtja juaj e parë." }
+];
+
+let currentQ = 0, score = 0, answered = false;
+
+function loadQ() {
+  const q = questions[currentQ];
+  document.getElementById('quizNum').textContent = `Pyetja ${currentQ+1} / ${questions.length}`;
+  document.getElementById('quizQ').textContent = q.q;
+  const opts = document.getElementById('quizOpts');
+  opts.innerHTML = '';
+  q.opts.forEach((o, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'quiz-opt';
+    btn.textContent = o;
+    btn.onclick = () => selectOpt(i);
+    opts.appendChild(btn);
+  });
+  document.getElementById('quizFb').className = 'quiz-feedback';
+  document.getElementById('quizFb').textContent = '';
+  document.getElementById('nextBtn').disabled = true;
+  answered = false;
+}
+
+function selectOpt(i) {
+  if (answered) return;
+  answered = true;
+  const q = questions[currentQ];
+  const btns = document.querySelectorAll('.quiz-opt');
+  btns.forEach(b => b.disabled = true);
+  btns[q.correct].classList.add('correct');
+  const fb = document.getElementById('quizFb');
+  if (i === q.correct) {
+    score++;
+    btns[i].classList.add('correct');
+    fb.textContent = '✅ Saktë! ' + q.explain;
+    fb.className = 'quiz-feedback show ok';
+  } else {
+    btns[i].classList.add('wrong');
+    fb.textContent = '❌ Gabim. ' + q.explain;
+    fb.className = 'quiz-feedback show err';
+  }
+  document.getElementById('scoreDsp').textContent = `Pikë: ${score}`;
+  document.getElementById('nextBtn').textContent = currentQ < questions.length - 1 ? 'Tjetër →' : 'Rezultati 🏆';
+  document.getElementById('nextBtn').disabled = false;
+}
+
+function nextQ() {
+  currentQ++;
+  if (currentQ >= questions.length) { showResult(); } else { loadQ(); }
+}
+
+function showResult() {
+  document.getElementById('quizInner').style.display = 'none';
+  const res = document.getElementById('quizResult');
+  res.classList.add('show');
+  const pct = Math.round((score / questions.length) * 100);
+  document.getElementById('resultScore').textContent = `${score} / ${questions.length}`;
+  let emoji, msg;
+  if (pct === 100) { emoji = '🏆'; msg = 'Perfekt! Jeni drejtues shembullor — rruga është e sigurt me ju!'; }
+  else if (pct >= 75) { emoji = '⭐'; msg = 'Shumë mirë! Njohja juaj e sinjalistikës është e shkëlqyer.'; }
+  else if (pct >= 50) { emoji = '👍'; msg = 'Mirë, por ka vend për përmirësim. Rilexoni seksionin e tabelave.'; }
+  else { emoji = '📚'; msg = 'Studioni sinjalistikën — jeta juaj dhe e të tjerëve varet prej saj!'; }
+  document.getElementById('resultEmoji').textContent = emoji;
+  document.getElementById('resultMsg').textContent = msg;
+}
+
+function restartQuiz() {
+  currentQ = 0; score = 0;
+  document.getElementById('quizInner').style.display = 'block';
+  document.getElementById('quizResult').classList.remove('show');
+  document.getElementById('scoreDsp').textContent = 'Pikë: 0';
+  loadQ();
+}
+
+loadQ();
+</script>
+</body>
+</html>
